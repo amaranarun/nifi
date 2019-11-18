@@ -1,0 +1,55 @@
+
+
+Git Configuration :
+
+System level git config is not needed to config, Change the config for Global, user level or repo level git config.
+
+1 System level Config
+2 User/Global level Config
+3 Repo level Config
+
+Global Config:
+
+Updaets the config on the ~/.gitconfig 
+
+git config --global user.name "Arun Amaran"
+git config --global user.email "arunkumar.amaran@macys.com"
+git config --global core.editor notepad++
+git config --global help.autocorrect 1
+git config --global color.ui auto
+git config --global core.autocrlf true 
+
+
+to update the config on repo just update the config on the repo where you are located and ignore the --global flag.
+git config on a repo will change the conif
+
+git log -- to view the commit history
+git log --oneline --graph 
+     to view the commit log in oneline option with branching graphed.
+
+git shortlog is for summary of commis
+
+git shortlog -sne 
+
+git show will show the commit message
+git show HEAD
+git show HEAD~1
+	 
+We can branch from any commit and get the state of the project from that point on
+
+git remote
+ show the remote url
+
+git remote -view
+
+git remote add origin <git repoo>
+
+git branch
+
+git tag
+
+git pull
+
+git push
+
+
