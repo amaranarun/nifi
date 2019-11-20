@@ -34,6 +34,8 @@ git shortlog -sne
 git show will show the commit message
 git show HEAD
 git show HEAD~1
+
+git diff
 	 
 We can branch from any commit and get the state of the project from that point on
 
@@ -51,5 +53,7 @@ git tag
 git pull
 
 git push
+
+
 
 

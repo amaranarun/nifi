@@ -1,0 +1,62 @@
+
+
+
+# Adding user to LDAP Server
+# Login to server has root user
+# Add user to unix box first and set the passwd
+# Then import the user to LDAP server using migrations tool.
+
+
+useradd nifi_admin
+echo "admin" | passwd --stdin nifi_admin
+
+useradd nifi_ruser
+echo "temp1234" | passwd --stdin nifi_ruser
+
+#Grep the user list
+grep ":10[0-9][0-9]" /etc/passwd > /root/passwd
+
+# User migration tool to conver the user list ot ldif file format to import to LDAP server
+cd /usr/share/migrationtool
+./migrate_passwd.pl /root/passwd /root/users.ldif
+
+# Add the users to the ldap server
+ldapadd -x -W -D "cn=Manager,dc=macys,dc=com" -f /root/users.ldif
+
+
+#To search for a specific user
+
+ldapsearch -x cn=ldapuser1 -b dc=macys,dc=com
+
+#To get the list of all users use the below command
+
+ldapsearch -LLL -s one -b "dc=macys,dc=com" "(cn=*)" dn | awk -F": " '$1~/^\s*dn/{print $2}' 
+
+#To get the list of user dn from Ldap server to delete
+
+ldapsearch -L -x -s one -b "ou=People,dc=macys,dc=com" "(cn=*)" dn | awk -F": " '$1~/^\s*dn/{print $2}'
+
+#To get the list of group dn from Ldap server to delete
+
+ldapsearch -L -x -s one -b "ou=Group,dc=macys,dc=com" "(cn=*)" dn | awk -F": " '$1~/^\s*dn/{print $2}'
+
+#To delete user recursivled from openLDAP server
+
+ldapdelete -x -D "cn=Manager,dc=macys,dc=com" -W -r -f listOfDNtoRemove.txt
+
+#Ldap search with remote host with bind DN and command line password to provide in line password use -w
+
+ldapsearch -x -D "CN=da_mtech_bigdata_adsync,OU=DataAccessAccounts,OU=SpecialAccounts,OU=_Federated,DC=federated,DC=fds" \
+           -H ldap://ns001.federated.fds:389 -b "OU=People,"DC=federated,DC=fds"" \
+           -s sub 'cn=B005141'
+
+
+ldapsearch -x -D "cn=svc-mst-main-labs,ou=ServiceAccounts,ou=SpecialAccounts,ou=_Federated,dc=federated,dc=fds" \
+           -H ldaps://LDAPPXY.FEDERATED.FDS:636 -b "OU=People,"DC=federated,DC=fds"" \
+           -s sub 'cn=B005141'
+		   
+		   trat-6Tru8he
+
+
+
+
