@@ -1,0 +1,10 @@
+NIFI TLS Toolkit
+
+To start the TLS server first time
+
+./bin/tls-toolkit.sh server -c mcjca033009 -t myTokenToUseToPreventMITM -p 9999 
+
+To start the TLS server subsequent time.
+
+./bin/tls-toolkit.sh server -c mcjca033009 -t myTokenToUseToPreventMITM -p 9999 -F ./config.json
+

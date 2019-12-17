@@ -60,3 +60,15 @@ ldapsearch -x -D "cn=svc-mst-main-labs,ou=ServiceAccounts,ou=SpecialAccounts,ou=
 
 
 
+############### LDAP Search ######################################3
+
+
+ldapsearch -h ns001.federated.fds -p 389 -s base -b "DC=federated,DC=fds" "cn=B005141"
+
+
+Ldap search with remote host with bind DN and command line password to provide in line password use -w
+
+ldapsearch -x -D "CN=da_mtech_bigdata_adsync,OU=DataAccessAccounts,OU=SpecialAccounts,OU=_Federated,DC=federated,DC=fds" \
+           -H ldap://ns001.federated.fds:389 -b "OU=People,"DC=federated,DC=fds"" \
+           -s sub 'cn=B005141'
+		   
